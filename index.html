@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <title>Nikki, Important Questions</title>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -14,7 +13,6 @@
       justify-content: center;
       margin: 0;
       text-align: center;
-      overflow: hidden;
     }
 
     .card {
@@ -24,8 +22,6 @@
       box-shadow: 0 20px 40px rgba(0,0,0,0.15);
       max-width: 420px;
       width: 90%;
-      position: relative;
-      z-index: 2;
     }
 
     h1 {
@@ -58,7 +54,7 @@
 <body>
 
   <div class="card" id="card">
-    <h1>Hi Nikki ❤️</h1>
+    <h1>Aloha Buddi ❤️</h1>
     <p>Quick question…</p>
     <button class="yes" onclick="next()">Continue</button>
   </div>
@@ -73,7 +69,12 @@
       {
         title: "Important Question #2",
         text: "Do you agree that snacks taste better when shared with me?",
-        buttons: ["Obviously yes", "Yes but don’t touch my fries"]
+        buttons: ["Obviously yes", "Yes but don’t touch my chocolates/Ice Cream"]
+      },
+      {
+        title: "Important Question #3",
+        text: "Decribe your husband?",
+        buttons: ["Meticulous", "Meticulously miraculous"]
       },
       {
         title: "Final Question",
@@ -93,29 +94,11 @@
         <h1>${step.title}</h1>
         <p>${step.text}</p>
         ${step.buttons.map((btn, i) => 
-          `<button class="${btn.includes('Yes') ? 'yes' : 'no'}" onclick="${
-            step.final && i === 0 ? 'yesClicked()' :
-            step.final && i === 1 ? 'moveNo(this)' :
-            'next()'
-          }">${btn}</button>`
+          `<button class="${btn.includes('Yes') ? 'yes' : 'no'}" onclick="${step.final && i === 1 ? 'moveNo(this)' : 'next()'}">${btn}</button>`
         ).join("")}
       `;
 
       index++;
-    }
-
-    function yesClicked() {
-      confetti({
-        particleCount: 200,
-        spread: 100,
-        origin: { y: 0.6 }
-      });
-
-      document.getElementById("card").innerHTML = `
-        <h1>Best. Answer. Ever. 💖</h1>
-        <p>Congratulations, Nikki.<br>
-        You are officially my Valentine forever.</p>
-      `;
     }
 
     function moveNo(btn) {
