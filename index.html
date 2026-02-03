@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Nikki, Important Questions</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -13,6 +14,7 @@
       justify-content: center;
       margin: 0;
       text-align: center;
+      overflow: hidden;
     }
 
     .card {
@@ -22,6 +24,8 @@
       box-shadow: 0 20px 40px rgba(0,0,0,0.15);
       max-width: 420px;
       width: 90%;
+      position: relative;
+      z-index: 2;
     }
 
     h1 {
@@ -54,8 +58,8 @@
 <body>
 
   <div class="card" id="card">
-    <h1>Aloha Buddi ❤️</h1>
-    <p>Quick question…</p>
+    <h1>Aloha Malohaaa ❤️</h1>
+    <p>A Quick Quizzz…</p>
     <button class="yes" onclick="next()">Continue</button>
   </div>
 
@@ -63,8 +67,8 @@
     const steps = [
       {
         title: "Very Important Question #1",
-        text: "On a scale from 1 to ‘absolutely obsessed,’ how amazing is your husband?",
-        buttons: ["Absolutely obsessed", "Even more obsessed"]
+        text: "On a scale from 1 to ‘Extremely obsessed,’ how obsessed are you with me?",
+        buttons: ["Extremely obsessed", "Just obsessed"]
       },
       {
         title: "Important Question #2",
@@ -73,13 +77,18 @@
       },
       {
         title: "Important Question #3",
-        text: "Decribe your husband?",
+        text: "Describe me?",
         buttons: ["Meticulous", "Meticulously miraculous"]
-      },
+	  },
+      {
+        title: "Important Question #4",
+        text: "What do you like to be called?",
+        buttons: ["Chikki buddi", "Buddi Chikki", "Pichuku", "Pottiii", "Chicklita", "Chickitha", "Chocolitha"]
+	  },
       {
         title: "Final Question",
         text: "Will you be my Valentine?",
-        buttons: ["Yes ❤️", "No 🙃"],
+        buttons: ["Yes ❤️", "No 🙃 (I dare you to click)"],
         final: true
       }
     ];
@@ -94,11 +103,30 @@
         <h1>${step.title}</h1>
         <p>${step.text}</p>
         ${step.buttons.map((btn, i) => 
-          `<button class="${btn.includes('Yes') ? 'yes' : 'no'}" onclick="${step.final && i === 1 ? 'moveNo(this)' : 'next()'}">${btn}</button>`
+          `<button class="${btn.includes('Yes') ? 'yes' : 'no'}" onclick="${
+            step.final && i === 0 ? 'yesClicked()' :
+            step.final && i === 1 ? 'moveNo(this)' :
+            'next()'
+          }">${btn}</button>`
         ).join("")}
       `;
 
       index++;
+    }
+
+    function yesClicked() {
+      confetti({
+        particleCount: 200,
+        spread: 100,
+        origin: { y: 0.6 }
+      });
+
+      document.getElementById("card").innerHTML = `
+        <h1>Best. Answer. Ever. 💖</h1>
+        <p>Congratulations, Buddiii<br>
+        You are officially my Valentine forever.</p>
+        <h1>Now go look in your desk drawer</h1>
+      `;
     }
 
     function moveNo(btn) {
